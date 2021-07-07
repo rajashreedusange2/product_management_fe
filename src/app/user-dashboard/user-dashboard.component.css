@@ -1,0 +1,31 @@
+.form{
+
+    margin-left: auto;
+    margin-right: 31px;
+    margin-top: 21px;
+
+
+}
+.mat-elevation-z8{
+  width: 70%;
+}
+.edit{
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.heading{
+  font-weight: normal;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    color: blueviolet;
+}
+@media (max-width: 600px) {
+  .mat-elevation-z8{
+    width: 100%;
+  }
+  .edit{
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}

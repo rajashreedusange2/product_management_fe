@@ -1,0 +1,104 @@
+<nav class="navbar navbar-expand-lg " style="background-color: blueviolet;">
+  <a class="navbar-brand" href="#">
+      <span style="color: white;">My Angular App</span>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="line" style="margin-top: 5px;"></span>
+    <span class="line"></span>
+    <span class="line"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav" style="margin-left: auto;">
+      <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/']">
+              <span class="img-sym" style="color: white;">Home</span>
+          </a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/user-dashboard']">
+              <span class="img-sym" style="color: white;">Products</span>
+          </a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/']">
+              <span class="img-sym" style="color: white;">Logout</span>
+          </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="row mx-auto" style="margin-top: 30px; font-size: x-large;">
+  <b class="heading" style="font-weight: normal;">Product Inventory</b>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <table mat-table [dataSource]="products" *ngIf="productAvailable == true" class="mat-elevation-z8" >
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="product_name" style="height: 70px;">
+        <th mat-header-cell *matHeaderCellDef style="font-size: medium;"> Name </th>
+        <td mat-cell *matCellDef="let product" style="width: 15%;"> {{product.product_name}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="sku_number" style="height: 70px;">
+        <th mat-header-cell *matHeaderCellDef style="font-size: medium;"> SKU </th>
+        <td mat-cell *matCellDef="let product" style="width: 15%;"> {{product.sku_number}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="product_description" style="height: 70px;">
+        <th mat-header-cell *matHeaderCellDef style="font-size: medium;"> Description </th>
+        <td mat-cell *matCellDef="let product" style="width: 15%;"> {{product.product_description}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="product_price" style="height: 70px;">
+        <th mat-header-cell *matHeaderCellDef style="font-size: medium;"> Price </th>
+        <td mat-cell *matCellDef="let product" style="width: 15%;"> {{product.product_price}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="stock_level" style="height: 70px;">
+        <th mat-header-cell *matHeaderCellDef style="font-size: medium;"> Stock Level </th>
+        <td mat-cell *matCellDef="let product"> {{product.stock_level}}<span class="edit" (click)="getProductDetailByProductid(product.product_id)" ><mat-icon>edit</mat-icon></span> <span (click)="deleteProduct(product.product_id)" ><mat-icon>delete</mat-icon></span></td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <div *ngIf="productAvailable == false">
+      No Product
+    </div>
+
+
+
+    <form class="form" [formGroup]="ownerForm"  autocomplete="off" novalidate (ngSubmit)="createOwner(ownerForm.value)">
+      <div class="form-group">
+        <label >Product Name</label>
+        <input placeholder="Product Name" formControlName="product_name" id="product_name" type="text" class="form-control" >
+      </div>
+      <div class="form-group">
+        <label >SKU</label>
+        <input placeholder="SKU" formControlName="sku_number" id="sku_number" class="form-control" >
+      </div>
+      <div class="form-group">
+        <label >Description</label>
+        <input placeholder="Description" formControlName="product_description" id="product_description" class="form-control" >
+      </div>
+      <div class="form-group">
+        <label >Price</label>
+        <input type="number" class="form-control" placeholder="Price" formControlName="product_price" id="product_price">
+      </div>
+      <div class="form-group">
+        <label >Stock Level</label>
+        <input type="number" class="form-control" placeholder="Stock Level" formControlName="stock_level" id="stock_level">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+  </div>
+</div>
+
